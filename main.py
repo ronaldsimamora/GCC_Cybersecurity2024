@@ -107,13 +107,31 @@ st.plotly_chart(fig_bar)
 # Tingkat penyelesaian semua peserta (Pie chart)
 st.header('2. Tingkat Penyelesaian Peserta')
 
+# <Tambahan
+
+# Define color scale
+colors = [
+    '#FF0000',  # Merah untuk 0 course
+    '#FF4500',  # Gradasi untuk 1 course
+    '#FF7F00',  # Gradasi untuk 2 course
+    '#FFFF00',  # Gradasi untuk 3 course
+    '#7FFF00',  # Gradasi untuk 4 course
+    '#00FF00',  # Gradasi untuk 5 course
+    '#00FFFF',  # Gradasi untuk 6 course
+    '#00BFFF',  # Gradasi untuk 7 course
+    '#1E90FF'   # Kebiruan untuk 8 course
+]
+
+# Tambahan>
+
 # Calculate completion rates for participants based on the number of completed courses
 completion_counts = data['Total Course yang Sudah Diselesaikan'].value_counts().sort_index()
 completion_labels = [f'{i} Course' for i in completion_counts.index]
 fig_pie_completion = px.pie(
     names=completion_labels,
     values=completion_counts,
-    title='Tingkat Penyelesaian Semua Peserta'
+    title='Tingkat Penyelesaian Semua Peserta',
+    color_discrete_sequence=colors # Tambahan parameter
 )
 st.plotly_chart(fig_pie_completion)
 
@@ -125,7 +143,7 @@ progress_counts = data['Status Progress'].value_counts()
 fig_pie_progress = px.pie(
     names=progress_counts.index,
     values=progress_counts,
-    title='Distribusi Status Progress Peserta'
+    title='Distribusi Status Progress Peserta' 
 )
 st.plotly_chart(fig_pie_progress)
 
