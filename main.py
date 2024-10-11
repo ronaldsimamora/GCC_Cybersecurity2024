@@ -143,10 +143,10 @@ st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
 st.write(kelulusan_df)
 
 # Menyiapkan warna untuk grafik batang
-colors = ['blue'] * len(kelulusan_df)  # Warna abu-abu tua
+colors = ['#4682B4'] * len(kelulusan_df)  # Warna abu-abu tua
 top_three_indices = kelulusan_df.head(3).index.tolist()  # Indeks tiga teratas
 for index in top_three_indices:
-    colors[index] = 'blue'  # Warna cyan untuk tiga teratas
+    colors[index] = '#4682B4'  # Warna cyan untuk tiga teratas
 
 # Membuat grafik batang menggunakan Matplotlib
 plt.figure(figsize=(10, 6))
