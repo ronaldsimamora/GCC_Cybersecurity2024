@@ -19,6 +19,19 @@ if selected_fasilitator != 'Semua':
 
 st.title('Visualisasi Kelulusan dan Progress Peserta')
 
+# Daftar peserta yang telah menyelesaikan seluruh course
+st.header('Selamat kepada peserta berikut yang telah menyelesaikan seluruh course')
+
+# Filter peserta yang telah menyelesaikan 8 course
+completed_all_courses = data[data['Total Course yang Sudah Diselesaikan'] == 8]['Name'].tolist()
+
+# Display the names of participants who completed all courses
+if completed_all_courses:
+    for name in completed_all_courses:
+        st.write(f"- {name}")
+else:
+    st.write("Belum ada peserta yang menyelesaikan seluruh course.")
+
 # Tingkat kelulusan per course (Bar chart)
 st.header('1. Tingkat Kelulusan per Course')
 
