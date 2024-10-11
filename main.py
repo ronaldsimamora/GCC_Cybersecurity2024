@@ -159,6 +159,11 @@ plt.title('Persentase Kelulusan Per Kelompok Fasilitator')
 plt.xticks(rotation=45, ha='right')
 plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
 
+# Menambahkan garis horizontal
+thresholds = [50, 72, 79, 86, 95]
+for threshold in thresholds:
+    plt.axhline(y=threshold, color='red', linestyle='--', linewidth=1)  # Garis horizontal merah putus-putus
+
 # Menampilkan grafik di Streamlit
 st.pyplot(plt)
 
