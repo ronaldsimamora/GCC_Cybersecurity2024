@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import matplotlib.pyplot as plt
 
 # Load dataset
 data = pd.read_csv('data.csv', delimiter=';')
@@ -116,8 +117,8 @@ st.dataframe(completion_table)
 
 # <TAMBAHAN
 
-import matplotlib.pyplot as plt
 
+varTemp = '''
 # Misalkan data sudah dimuat di variabel `data`
 
 # Menghitung persentase kelulusan per kelompok fasilitator
@@ -159,7 +160,47 @@ plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
 
 # Menampilkan grafik di Streamlit
 st.pyplot(plt)
+'''
 
+# Menghitung persentase kelulusan per kelompok fasilitator
+kelulusan_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah Diselesaikan'].apply(
+    lambda x: (x == 8).sum()
+)
+total_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah Diselesaikan'].count()
+
+# Menghitung persentase
+persentase_kelulusan = (kelulusan_counts / total_counts * 100).fillna(0).round(2)
+
+# Mengubah ke DataFrame untuk tampilan tabel
+kelulusan_df = pd.DataFrame({
+    'Nama Fasilitator': persentase_kelulusan.index,
+    'Persentase Kelulusan (%)': persentase_kelulusan.values
+}).reset_index(drop=True)
+
+# Mengurutkan DataFrame dari persentase tertinggi ke terendah
+kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace=True)
+
+# Menampilkan tabel
+st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
+st.write(kelulusan_df)
+
+# Menyiapkan warna untuk grafik batang
+colors = ['#4682B4'] * len(kelulusan_df)  # Warna Steel Blue
+top_three_indices = kelulusan_df.head(3).index.tolist()  # Indeks tiga teratas
+for index in top_three_indices:
+    colors[index] = '#1E90FF'  # Warna Dodger Blue untuk tiga teratas
+
+# Membuat grafik batang menggunakan Matplotlib
+plt.figure(figsize=(10, 6))
+plt.bar(kelulusan_df['Nama Fasilitator'], kelulusan_df['Persentase Kelulusan (%)'], color=colors)
+plt.xlabel('Nama Fasilitator')
+plt.ylabel('Persentase Kelulusan (%)')
+plt.title('Persentase Kelulusan Per Kelompok Fasilitator')
+plt.xticks(rotation=45, ha='right')
+plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
+
+# Menampilkan grafik di Streamlit
+st.pyplot(plt)
 
 # TAMBAHAN>
 
