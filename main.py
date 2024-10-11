@@ -116,6 +116,12 @@ st.dataframe(completion_table)
 
 # <TAMBAHAN
 
+import pandas as pd
+import matplotlib.pyplot as plt
+import streamlit as st
+
+# Misalkan data sudah dimuat di variabel `data`
+
 # Menghitung persentase kelulusan per kelompok fasilitator
 kelulusan_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah Diselesaikan'].apply(
     lambda x: (x == 8).sum()
@@ -138,9 +144,23 @@ kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace
 st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
 st.write(kelulusan_df)
 
-# Menampilkan grafik batang berdasarkan DataFrame yang sudah diurutkan
-st.bar_chart(kelulusan_df.set_index('Nama Fasilitator'))
+# Menyiapkan warna untuk grafik batang
+colors = ['#4B4B4B'] * len(kelulusan_df)  # Warna abu-abu tua
+top_three_indices = kelulusan_df.head(3).index.tolist()  # Indeks tiga teratas
+for index in top_three_indices:
+    colors[index] = 'cyan'  # Warna cyan untuk tiga teratas
 
+# Membuat grafik batang menggunakan Matplotlib
+plt.figure(figsize=(10, 6))
+plt.bar(kelulusan_df['Nama Fasilitator'], kelulusan_df['Persentase Kelulusan (%)'], color=colors)
+plt.xlabel('Nama Fasilitator')
+plt.ylabel('Persentase Kelulusan (%)')
+plt.title('Persentase Kelulusan Per Kelompok Fasilitator')
+plt.xticks(rotation=45, ha='right')
+plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
+
+# Menampilkan grafik di Streamlit
+st.pyplot(plt)
 
 
 # TAMBAHAN>
