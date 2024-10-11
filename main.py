@@ -138,7 +138,7 @@ kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace
 st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
 st.write(kelulusan_df)
 
-# Menampilkan grafik batang
+# Menampilkan grafik batang berdasarkan DataFrame yang sudah diurutkan
 st.bar_chart(kelulusan_df.set_index('Nama Fasilitator'))
 
 
