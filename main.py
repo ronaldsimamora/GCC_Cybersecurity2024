@@ -115,6 +115,7 @@ completion_table = completion_table.rename(columns={'Name': 'Nama Peserta', 'Tot
 st.dataframe(completion_table)
 
 # <TAMBAHAN
+
 # Menghitung persentase kelulusan per kelompok fasilitator
 kelulusan_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah Diselesaikan'].apply(
     lambda x: (x == 8).sum()
@@ -122,7 +123,7 @@ kelulusan_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah
 total_counts = data.groupby('Kelompok Fasilitator')['Total Course yang Sudah Diselesaikan'].count()
 
 # Menghitung persentase
-persentase_kelulusan = (kelulusan_counts / total_counts * 100).fillna(0)
+persentase_kelulusan = (kelulusan_counts / total_counts * 100).fillna(0).round(2)
 
 # Mengubah ke DataFrame untuk tampilan tabel
 kelulusan_df = pd.DataFrame({
@@ -130,12 +131,17 @@ kelulusan_df = pd.DataFrame({
     'Persentase Kelulusan (%)': persentase_kelulusan.values
 }).reset_index(drop=True)
 
+# Mengurutkan DataFrame dari persentase tertinggi ke terendah
+kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace=True)
+
 # Menampilkan tabel
 st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
 st.write(kelulusan_df)
 
 # Menampilkan grafik batang
 st.bar_chart(kelulusan_df.set_index('Nama Fasilitator'))
+
+
 
 # TAMBAHAN>
 
