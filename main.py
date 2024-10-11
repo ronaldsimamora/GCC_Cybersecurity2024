@@ -5,6 +5,9 @@ import plotly.express as px
 # Load dataset
 data = pd.read_csv('data.csv', delimiter=';')
 
+# Load dataset
+data = pd.read_csv('data.csv', delimiter=';')
+
 # Mapping dari kode fasilitator ke nama fasilitator
 fasilitator_mapping = {
     'C01': 'Aditya Friman Nugroho',
@@ -22,6 +25,9 @@ fasilitator_mapping = {
     'C13': 'Roby Ismail Adi Putraq',
     'C14': 'Yeheskiel Almasar Tampubolon'
 }
+
+# Gantikan kode fasilitator dengan nama fasilitator
+data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].map(fasilitator_mapping)
 
 # Pastikan semua nilai dalam kolom 'Kelompok Fasilitator' adalah tipe string
 data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].astype(str)
