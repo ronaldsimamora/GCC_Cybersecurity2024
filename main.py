@@ -37,15 +37,6 @@ st.sidebar.header('Filter Fasilitator')
 fasilitator_options = ['Semua'] + sorted(data['Kelompok Fasilitator'].unique().tolist())
 selected_fasilitator = st.sidebar.selectbox('Pilih Kelompok Fasilitator:', fasilitator_options)
 
-
-# Gantikan kode fasilitator dengan nama fasilitator
-data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].map(fasilitator_mapping)
-
-# Sidebar for facilitator selection
-st.sidebar.header('Filter Fasilitator')
-fasilitator_options = ['Semua'] + sorted(data['Kelompok Fasilitator'].unique().tolist())
-selected_fasilitator = st.sidebar.selectbox('Pilih Kelompok Fasilitator:', fasilitator_options)
-
 # Filter data based on the selected facilitator
 if selected_fasilitator != 'Semua':
     data = data[data['Kelompok Fasilitator'] == selected_fasilitator]
