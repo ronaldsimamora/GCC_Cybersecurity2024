@@ -113,3 +113,10 @@ st.header('4. Daftar Peserta dan Tingkat Penyelesaian')
 completion_table = data[['Name', 'Total Course yang Sudah Diselesaikan']].sort_values(by='Total Course yang Sudah Diselesaikan', ascending=False)
 completion_table = completion_table.rename(columns={'Name': 'Nama Peserta', 'Total Course yang Sudah Diselesaikan': 'Jumlah Course yang Diselesaikan'})
 st.dataframe(completion_table)
+
+# Add a footer or caption at the bottom of the app
+st.markdown("""<hr style="border:1px solid gray">""", unsafe_allow_html=True)
+st.markdown(
+    "<p style='text-align: center; font-size: 12px;'>© 2024 oleh Anggoro Yudho Nuswantoro</p>",
+    unsafe_allow_html=True
+)
