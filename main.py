@@ -105,7 +105,7 @@ fig_bar = px.bar(
 st.plotly_chart(fig_bar)
 
 # Tingkat penyelesaian semua peserta (Pie chart)
-st.header('2. Tingkat Penyelesaian Semua Peserta')
+st.header('2. Tingkat Penyelesaian Peserta')
 
 # Calculate completion rates for participants based on the number of completed courses
 completion_counts = data['Total Course yang Sudah Diselesaikan'].value_counts().sort_index()
@@ -118,7 +118,7 @@ fig_pie_completion = px.pie(
 st.plotly_chart(fig_pie_completion)
 
 # Distribusi status progress peserta (Pie chart)
-st.header('3. Distribusi Status Progress Peserta')
+st.header('3. Status Progress Peserta')
 
 # Calculate distribution of progress status
 progress_counts = data['Status Progress'].value_counts()
