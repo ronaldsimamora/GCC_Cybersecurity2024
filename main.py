@@ -131,7 +131,7 @@ fig_pie_completion = px.pie(
     names=completion_labels,
     values=completion_counts,
     title='Tingkat Penyelesaian Semua Peserta',
-    color_discrete_sequence=completion_counts # Tambahan parameter
+    color_discrete_sequence=colors # Tambahan parameter
 )
 st.plotly_chart(fig_pie_completion)
 
