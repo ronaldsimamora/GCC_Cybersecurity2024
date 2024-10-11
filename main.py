@@ -5,8 +5,26 @@ import plotly.express as px
 # Load dataset
 data = pd.read_csv('data.csv', delimiter=';')
 
-# Pastikan semua nilai dalam kolom 'Kelompok Fasilitator' adalah tipe string
-data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].astype(str)
+# Mapping dari kode fasilitator ke nama fasilitator
+fasilitator_mapping = {
+    'C01': 'Aditya Friman Nugroho',
+    'C02': 'Adrianus Yoga Arsa Sadana',
+    'C03': 'Affandy Murad',
+    'C04': 'Dimas Pramudya Haqqi',
+    'C05': 'Anggoro Yudho Nuswantoro',
+    'C06': 'Cosmas Sakristiandio',
+    'C07': 'Andrew Benedictus Jamesie',
+    'C08': 'Heri Prastio',
+    'C09': 'Jajang Jamaludin',
+    'C10': 'Lutfi Kiki Fuadi',
+    'C11': 'Mufti AlieSatriawan',
+    'C12': 'Ricky Fahriza',
+    'C13': 'Roby Ismail Adi Putraq',
+    'C14': 'Yeheskiel Almasar Tampubolon'
+}
+
+# Gantikan kode fasilitator dengan nama fasilitator
+data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].map(fasilitator_mapping)
 
 # Sidebar for facilitator selection
 st.sidebar.header('Filter Fasilitator')
