@@ -5,6 +5,9 @@ import plotly.express as px
 # Load dataset
 data = pd.read_csv('data.csv', delimiter=';')
 
+# Pastikan semua nilai dalam kolom 'Kelompok Fasilitator' adalah tipe string
+data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].astype(str)
+
 # Sidebar for facilitator selection
 st.sidebar.header('Filter Fasilitator')
 fasilitator_options = ['Semua'] + sorted(data['Kelompok Fasilitator'].unique().tolist())
@@ -65,4 +68,3 @@ fig_pie_progress = px.pie(
     title='Distribusi Status Progress Peserta'
 )
 st.plotly_chart(fig_pie_progress)
-
