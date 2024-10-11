@@ -56,7 +56,7 @@ kelulusan_df = pd.DataFrame({
 }).reset_index(drop=True)
 
 # Mengurutkan DataFrame dari persentase tertinggi ke terendah
-kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace=True)
+# kelulusan_df.sort_values(by='Persentase Kelulusan (%)', ascending=False, inplace=True)
 
 # Tambahan>
 
