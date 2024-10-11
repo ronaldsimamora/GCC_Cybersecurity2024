@@ -10,7 +10,7 @@ data = pd.read_csv('data.csv', delimiter=';')
 
 # Mapping dari kode fasilitator ke nama fasilitator
 fasilitator_mapping = {
-    'C01': 'Aditya Friman Nugroho',
+    'C01': 'Aditya Firman Nugroho',
     'C02': 'Adrianus Yoga Arsa Sadana',
     'C03': 'Affandy Murad',
     'C04': 'Dimas Pramudya Haqqi',
