@@ -23,6 +23,15 @@ fasilitator_mapping = {
     'C14': 'Yeheskiel Almasar Tampubolon'
 }
 
+# Pastikan semua nilai dalam kolom 'Kelompok Fasilitator' adalah tipe string
+data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].astype(str)
+
+# Sidebar for facilitator selection
+st.sidebar.header('Filter Fasilitator')
+fasilitator_options = ['Semua'] + sorted(data['Kelompok Fasilitator'].unique().tolist())
+selected_fasilitator = st.sidebar.selectbox('Pilih Kelompok Fasilitator:', fasilitator_options)
+
+
 # Gantikan kode fasilitator dengan nama fasilitator
 data['Kelompok Fasilitator'] = data['Kelompok Fasilitator'].map(fasilitator_mapping)
 
