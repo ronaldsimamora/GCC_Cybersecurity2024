@@ -116,9 +116,7 @@ st.dataframe(completion_table)
 
 # <TAMBAHAN
 
-import pandas as pd
 import matplotlib.pyplot as plt
-import streamlit as st
 
 # Misalkan data sudah dimuat di variabel `data`
 
