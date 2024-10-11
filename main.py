@@ -104,34 +104,36 @@ fig_bar = px.bar(
 )
 st.plotly_chart(fig_bar)
 
-# Tingkat penyelesaian semua peserta (Pie chart)
+# Tingkat penyelesaian peserta (Pie chart)
 st.header('2. Tingkat Penyelesaian Peserta')
-
-# <Tambahan
-
-# Define color scale
-colors = [
-    '#FF0000',  # Merah untuk 0 course
-    '#FF4500',  # Gradasi untuk 1 course
-    '#FF7F00',  # Gradasi untuk 2 course
-    '#FFFF00',  # Gradasi untuk 3 course
-    '#7FFF00',  # Gradasi untuk 4 course
-    '#00FF00',  # Gradasi untuk 5 course
-    '#00FFFF',  # Gradasi untuk 6 course
-    '#00BFFF',  # Gradasi untuk 7 course
-    '#1E90FF'   # Kebiruan untuk 8 course
-]
-
-# Tambahan>
 
 # Calculate completion rates for participants based on the number of completed courses
 completion_counts = data['Total Course yang Sudah Diselesaikan'].value_counts().sort_index()
 completion_labels = [f'{i} Course' for i in completion_counts.index]
+
+# Define color map to match each label
+color_mapping = {
+    '0 Course': '#FF0000',  # Merah untuk 0 course
+    '1 Course': '#FF4500',  # Gradasi untuk 1 course
+    '2 Course': '#FF7F00',  # Gradasi untuk 2 course
+    '3 Course': '#FFFF00',  # Gradasi untuk 3 course
+    '4 Course': '#7FFF00',  # Gradasi untuk 4 course
+    '5 Course': '#00FF00',  # Gradasi untuk 5 course
+    '6 Course': '#00FFFF',  # Gradasi untuk 6 course
+    '7 Course': '#00BFFF',  # Gradasi untuk 7 course
+    '8 Course': '#1E90FF'   # Kebiruan untuk 8 course
+}
+
+# Buat DataFrame dari names dan values
+df_pie = pd.DataFrame({'names': completion_labels, 'values': completion_counts})
+
 fig_pie_completion = px.pie(
-    names=completion_labels,
-    values=completion_counts,
+    data_frame=df_pie,  # Gunakan DataFrame sebagai data_frame
+    names='names',  # Kolom 'names' dalam DataFrame
+    values='values',  # Kolom 'values' dalam DataFrame
     title='Tingkat Penyelesaian Semua Peserta',
-    color_discrete_sequence=colors # Tambahan parameter
+    color='names',  # Gunakan 'names' sebagai kolom untuk pemetaan warna
+    color_discrete_map=color_mapping
 )
 st.plotly_chart(fig_pie_completion)
 
@@ -140,12 +142,29 @@ st.header('3. Status Progress Peserta')
 
 # Calculate distribution of progress status
 progress_counts = data['Status Progress'].value_counts()
-fig_pie_progress = px.pie(
-    names=progress_counts.index,
-    values=progress_counts,
-    title='Distribusi Status Progress Peserta' 
+progress_labels = [f'{i}' for i in progress_counts.index]
+
+# Define color map to match each label
+color_mapping = {
+    'Belum Terdaftar': '#FF0000', 
+    'Belum Berprogress': '#FF4500',
+    'Progress Dibawah Rekomendasi': '#FF7F00',
+    'Progress Diatas/Sesuai Rekomendasi': '#00BFFF',
+    'Sudah Lulus Spesialisasi': '#1E90FF',
+}
+
+# Buat DataFrame dari names dan values
+df_pie = pd.DataFrame({'names': progress_labels, 'values': progress_counts})
+
+fig_pie_completion = px.pie(
+    data_frame=df_pie,  # Gunakan DataFrame sebagai data_frame
+    names='names',  # Kolom 'names' dalam DataFrame
+    values='values',  # Kolom 'values' dalam DataFrame
+    title='Status Progress Peserta',
+    color='names',  # Gunakan 'names' sebagai kolom untuk pemetaan warna
+    color_discrete_map=color_mapping
 )
-st.plotly_chart(fig_pie_progress)
+st.plotly_chart(fig_pie_completion)
 
 # Tampilkan daftar nama peserta dan tingkat penyelesaiannya
 st.header('4. Daftar Peserta dan Tingkat Penyelesaian')
@@ -154,8 +173,6 @@ st.header('4. Daftar Peserta dan Tingkat Penyelesaian')
 completion_table = data[['Name', 'Total Course yang Sudah Diselesaikan']].sort_values(by='Total Course yang Sudah Diselesaikan', ascending=False)
 completion_table = completion_table.rename(columns={'Name': 'Nama Peserta', 'Total Course yang Sudah Diselesaikan': 'Jumlah Course yang Diselesaikan'})
 st.dataframe(completion_table)
-
-# <TAMBAHAN
 
 # Menampilkan tabel
 st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
@@ -184,9 +201,6 @@ for threshold in thresholds:
 
 # Menampilkan grafik di Streamlit
 st.pyplot(plt)
-
-# TAMBAHAN>
-
 
 # Add a footer or caption at the bottom of the app
 st.markdown("""<hr style="border:1px solid gray">""", unsafe_allow_html=True)
