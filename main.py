@@ -141,25 +141,30 @@ st.dataframe(completion_table)
 
 # Menampilkan tabel
 st.subheader('5. Persentase Kelulusan Per Kelompok Fasilitator')
-st.write(kelulusan_df)
 
-# Menyiapkan warna untuk grafik batang
-colors = ['#4682B4'] * len(kelulusan_df)  # Warna Steel Blue
-top_three_indices = kelulusan_df.nlargest(3, 'Persentase Kelulusan (%)').index.tolist()  # Indeks tiga teratas
-for index in top_three_indices:
-    colors[index] = '#1E90FF'  # Warna Dodger Blue untuk tiga teratas
+col1, col2 = st.columns(2)
 
-# Membuat grafik batang menggunakan Matplotlib
-plt.figure(figsize=(10, 6))
-plt.bar(kelulusan_df['Nama Fasilitator'], kelulusan_df['Persentase Kelulusan (%)'], color=colors)
-plt.xlabel('Nama Fasilitator')
-plt.ylabel('Persentase Kelulusan (%)')
-plt.title('Persentase Kelulusan Per Kelompok Fasilitator')
-plt.xticks(rotation=45, ha='right')
-plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
+with col1: 
+    st.write(kelulusan_df)
 
-# Menampilkan grafik di Streamlit
-st.pyplot(plt)
+with col2:
+    # Menyiapkan warna untuk grafik batang
+    colors = ['#4682B4'] * len(kelulusan_df)  # Warna Steel Blue
+    top_three_indices = kelulusan_df.nlargest(3, 'Persentase Kelulusan (%)').index.tolist()  # Indeks tiga teratas
+    for index in top_three_indices:
+        colors[index] = '#1E90FF'  # Warna Dodger Blue untuk tiga teratas
+    
+    # Membuat grafik batang menggunakan Matplotlib
+    plt.figure(figsize=(10, 6))
+    plt.bar(kelulusan_df['Nama Fasilitator'], kelulusan_df['Persentase Kelulusan (%)'], color=colors)
+    plt.xlabel('Nama Fasilitator')
+    plt.ylabel('Persentase Kelulusan (%)')
+    plt.title('Persentase Kelulusan Per Kelompok Fasilitator')
+    plt.xticks(rotation=45, ha='right')
+    plt.ylim(0, 100)  # Mengatur batas y antara 0 dan 100
+    
+    # Menampilkan grafik di Streamlit
+    st.pyplot(plt)
 
 # TAMBAHAN>
 
