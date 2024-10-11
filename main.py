@@ -145,9 +145,9 @@ st.write(kelulusan_df)
 
 # Menyiapkan warna untuk grafik batang
 colors = ['#4682B4'] * len(kelulusan_df)  # Warna Steel Blue
-# top_three_indices = kelulusan_df.head(3).index.tolist()  # Indeks tiga teratas
-# for index in top_three_indices:
-#     colors[index] = '#1E90FF'  # Warna Dodger Blue untuk tiga teratas
+top_three_indices = kelulusan_df.head(3).index.tolist()  # Indeks tiga teratas
+for index in top_three_indices:
+    colors[index] = '#1E90FF'  # Warna Dodger Blue untuk tiga teratas
 
 # Membuat grafik batang menggunakan Matplotlib
 plt.figure(figsize=(10, 6))
