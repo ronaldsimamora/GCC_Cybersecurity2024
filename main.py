@@ -73,11 +73,47 @@ st.header('Selamat kepada peserta berikut yang telah menyelesaikan seluruh cours
 completed_all_courses = data[data['Total Course yang Sudah Diselesaikan'] == 8]['Name'].tolist()
 
 # Display the names of participants who completed all courses
+jumlah = len(completed_all_courses)
+completed_all_courses.sort()
+col1, col2, col3 = st.columns(3)
+name1 = []
+name2 = []
+name3 = []
+count_name = 0
 if completed_all_courses:
     for name in completed_all_courses:
-        st.write(f"- {name}")
+        count_name = count_name + 1
+        if count_name == 1:
+            name1 = [name]
+        elif count_name == 2:
+            name2 = [name]
+        elif count_name == 3:
+            name3 = [name]
+        if count_name > 3:
+            if count_name % 3 == 1:
+                name1 = name1 + [name]
+            elif count_name % 3 == 2:
+                name2 = name2 + [name]
+            elif count_name % 3 == 0:
+                name3 = name3 + [name]
+    with col1:
+        for name in name1:
+                st.write(f"- {name}")
+    with col2:
+        for name in name2:
+                st.write(f"- {name}")
+    with col3:
+        for name in name3:
+                st.write(f"- {name}")
 else:
     st.write("Belum ada peserta yang menyelesaikan seluruh course.")
+
+# Display the names of participants who completed all courses
+#if completed_all_courses:
+#    for name in completed_all_courses:
+#        st.write(f"- {name}")
+#else:
+#    st.write("Belum ada peserta yang menyelesaikan seluruh course.")
 
 # Tingkat kelulusan per course (Bar chart)
 st.header('1. Tingkat Kelulusan per Course')
