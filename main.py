@@ -4,10 +4,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Load dataset
-data = pd.read_csv('data.csv', delimiter=';')
-
-# Load dataset
-data = pd.read_csv('data.csv', delimiter=';')
+data = pd.read_csv('data.csv', delimiter=',')
 
 # Mapping dari kode fasilitator ke nama fasilitator
 fasilitator_mapping = {
